@@ -28,8 +28,8 @@ class TagController extends Controller
     public function create()
     {
         //
-        $tags = new Tag();
-        return view('admin.tags.create', compact('tags'));
+        $tag = new Tag();
+        return view('admin.tags.create', compact('tag'));
     }
 
     /**
@@ -70,6 +70,8 @@ class TagController extends Controller
     public function edit($id)
     {
         //
+        $tag = Tag::findOrFail($id);
+        return view('admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -82,6 +84,11 @@ class TagController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $tag = Tag::findOrFail($id);
+        $data = $request->all();
+
+        $tag->update($data);
+        return redirect()->route('admin.tags.show', $tag->id);
     }
 
     /**
@@ -93,5 +100,9 @@ class TagController extends Controller
     public function destroy($id)
     {
         //
+        $tag = Tag::findOrFail($id);
+        $tag->delete();
+
+        return redirect()->route('admin.tags.index');
     }
 }

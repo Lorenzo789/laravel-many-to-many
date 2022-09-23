@@ -3,7 +3,7 @@
 @section('content')
     @include('admin.tags.includes.form', [
         'routeName' => 'admin.tags.store',
-        'data' => $tags,
+        'data' => $tag,
         'methodName' => 'POST',
     ])
 @endsection

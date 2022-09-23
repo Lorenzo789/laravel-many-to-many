@@ -4,7 +4,7 @@
     <div class="container">
         <div class="mb-3">
             <label for="name">Name</label>
-            <input class="form-control" type="text" name="name" value="{{ old('name', $tags->name) }}">
+            <input class="form-control" type="text" name="name" value="{{ old('name', $tag->name) }}">
         </div>
 
         <button class="btn btn-success" type="submit">
