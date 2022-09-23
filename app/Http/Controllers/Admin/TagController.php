@@ -28,6 +28,8 @@ class TagController extends Controller
     public function create()
     {
         //
+        $tags = new Tag();
+        return view('admin.tags.create', compact('tags'));
     }
 
     /**
@@ -39,6 +41,10 @@ class TagController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->all();
+        Tag::create($data);
+
+        return redirect()->route('admin.tags.index');
     }
 
     /**
