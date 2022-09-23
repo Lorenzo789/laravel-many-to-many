@@ -18,6 +18,7 @@
                     <th>Author</th>
                     <th>Title</th>
                     <th>Post Date</th>
+                    <th>Tag</th>
                 </tr>
             </thead>
 
@@ -28,6 +29,19 @@
                         <td><a href="{{ route('admin.posts.show', $post->id) }}">{{ $post->user->name }}</a></td>
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->post_date }}</td>
+                        <td>            
+                            <span class="badge badge-pill">
+                                @if ( isset($post->tags) )
+                                    @foreach ($post->tags as $tag)
+                                        <a href="{{ route('admin.tags.index') }}">
+                                            {{ $tag->name }}-
+                                        </a>
+                                    @endforeach
+                                @else
+                                    no tag selected for this post
+                                @endif
+                            </span>
+                        </td>
                         <td>
                             <a href="{{ route('admin.posts.edit', $post->id) }}" class="btn btn-success">
                                 Edit
