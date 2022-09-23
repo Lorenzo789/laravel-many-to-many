@@ -27,4 +27,5 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index')->name('home');
         Route::get('/home', 'PostController@index')->name('index');
         Route::resource('posts', 'PostController');
+        Route::resource('tags', 'TagController');
     });
