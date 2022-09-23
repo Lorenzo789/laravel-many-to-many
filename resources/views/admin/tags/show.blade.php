@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        <div class="text-center">
+            <h1>
+                Tag: {{ $tags->name }}
+            </h1>
+        </div>
         @forelse ($tags->posts as $post)
             <div class="card">
                 <div class="card-body p-5">
@@ -31,10 +36,8 @@
                     </div>
                 </div>
             </div>
-
-            
         @empty
-            
+            no post for this tag
         @endforelse
     </div>
 @endsection
