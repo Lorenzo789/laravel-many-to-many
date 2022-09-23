@@ -7,6 +7,11 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th class="text-right">
+                        <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.tags.create') }}">
+                            Add a tag
+                        </a>
+                    </th>
                 </tr>
             </thead>
 
@@ -32,9 +37,6 @@
                                     Delete
                                 </button>
                             </form>
-                            <a class="btn btn-primary" href="{{ route('admin.tags.create') }}">
-                                Add a tag
-                            </a>
                         </td>
                     </tr>
                 @empty
