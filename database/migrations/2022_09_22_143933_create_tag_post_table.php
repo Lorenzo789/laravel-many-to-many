@@ -17,12 +17,14 @@ class CreateTagPostTable extends Migration
             $table->unsignedBigInteger('tag_id');
                 $table->foreign('tag_id')
                 ->references('id')
-                ->on('tags');
+                ->on('tags')
+                ->onDelete('cascade');
 
             $table->unsignedBigInteger('post_id');
                 $table->foreign('post_id')
                 ->references('id')
-                ->on('posts');
+                ->on('posts')
+                ->onDelete('cascade');
 
             $table->primary(['post_id', 'tag_id']);
 
