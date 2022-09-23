@@ -1,5 +1,5 @@
 @error($errorType)
-    <div class="validation-failed">
+    <div class="alert alert-danger">
         {{ $message }}
     </div>
 @enderror

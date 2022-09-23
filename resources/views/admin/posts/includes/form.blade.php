@@ -20,6 +20,22 @@
             ])
         </div>
 
+        @foreach ($tags as $tag)
+            <div class="mb-3">
+                <label for="tags" class="px-4">{{ $tag->name }}</label>
+            @if ($errors->any())
+                <input type="checkbox" name="tags[]" id="input-tags" class="form-check-input" 
+                    value="{{ $tag->id }}" {{ in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+            @else
+                <input type="checkbox" name="tags[]" id="input-tags" class="form-check-input" 
+                    value="{{ $tag->id }}" {{ $post->tags->contains($tag) ? 'checked' : '' }}>
+            @endif
+            </div>
+        @endforeach
+                @include('admin.posts.includes.errors', [
+                    'errorType' => 'tags',
+                ])  
+
         <div class="mb-3">
             <label for="post_image">Post Image</label>
             <input class="form-control" type="text" name="post_image"

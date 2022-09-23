@@ -8,6 +8,7 @@ use App\Models\Tag;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -32,8 +33,9 @@ class PostController extends Controller
     public function create()
     {
         //
+        $tags = Tag::all();
         $post = new Post();
-        return view('admin.posts.create', compact('post'));
+        return view('admin.posts.create', compact('post', 'tags'));
     }
 
     /**
@@ -45,6 +47,17 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'title' => [
+                'min:3',
+                'max:255',
+                'required',
+            ],
+            'post_content' => 'min:5|required',
+            'post_image' => 'active_url',
+            'tags' => 'exists:tags,id',
+        ]);
+
         $data = $request->All();
 
         $data['user_id'] = Auth::id();
@@ -77,7 +90,8 @@ class PostController extends Controller
     {
         //
         $post = Post::findOrFail($id);
-        return view('admin.posts.edit', compact('post'));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'tags'));
     }
 
     /**
@@ -91,6 +105,19 @@ class PostController extends Controller
     {
         //
         $post = Post::findOrFail($id);
+
+        $request->validate([
+            'title' => [
+                'min:3',
+                'max:255',
+                'required',
+                Rule::unique('posts')->ignore($post->title, 'title'),
+            ],
+            'post_content' => 'min:5|required',
+            'post_image' => 'active_url',
+            'tags' => 'exists:tags,id',
+        ]);
+
         $data = $request->all();
 
         $data['user_id'] = $post->user_id;
