@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TagController extends Controller
 {
@@ -41,10 +42,14 @@ class TagController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required|unique:tags,name'
+        ]);
+        
         $data = $request->all();
         Tag::create($data);
 
-        return redirect()->route('admin.tags.index');
+        return redirect()->route('admin.tags.index')->with('created', $data['name']);
     }
 
     /**
@@ -87,8 +92,15 @@ class TagController extends Controller
         $tag = Tag::findOrFail($id);
         $data = $request->all();
 
+        $request->validate([
+            'name' => [
+                'required', 'unique:tags,name',
+                Rule::unique('tags')->ignore($tag->name, 'name')
+            ]
+        ]);
+
         $tag->update($data);
-        return redirect()->route('admin.tags.show', $tag->id);
+        return redirect()->route('admin.tags.show', $tag->id)->with('edited', $tag->name);
     }
 
     /**
@@ -103,6 +115,6 @@ class TagController extends Controller
         $tag = Tag::findOrFail($id);
         $tag->delete();
 
-        return redirect()->route('admin.tags.index');
+        return redirect()->route('admin.tags.index')->with('deleted', $tag->name);
     }
 }

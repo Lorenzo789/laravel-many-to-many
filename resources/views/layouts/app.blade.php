@@ -71,6 +71,16 @@
                                     Add a Post
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.posts.index') }}">
+                                    Post
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.tags.index') }}">
+                                    Tags
+                                </a>
+                            </li>
                         @endguest
                     </ul>
                 </div>

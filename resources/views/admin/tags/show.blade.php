@@ -7,6 +7,12 @@
                 Tag: {{ $tags->name }}
             </h1>
         </div>
+        @if (session('edited'))
+            <div class="alert alert-success">
+                <h1>{{ session('edited') }} has been modified succesfully</h1>
+            </div>)
+        @endif
+        
         @forelse ($tags->posts as $post)
             <div class="card">
                 <div class="card-body p-5">

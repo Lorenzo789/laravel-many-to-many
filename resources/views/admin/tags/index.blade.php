@@ -2,6 +2,16 @@
 
 @section('content')
     <div class="container">
+        @if (session('created'))
+            <div class="alert alert-success">
+                <h1>{{ session('created') }} has created succesfully</h1>
+            </div>
+        @elseif (session('deleted'))
+            <div class="alert alert-danger">
+                <h1>{{ session('deleted') }} has deleted succesfully</h1>
+            </div>
+        @endif
+
         <table class="table table-dark">
             <thead>
                 <tr>
