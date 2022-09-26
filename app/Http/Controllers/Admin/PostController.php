@@ -8,6 +8,7 @@ use App\Models\Tag;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class PostController extends Controller
@@ -20,6 +21,7 @@ class PostController extends Controller
     public function index()
     {
         //
+        // $post = Post::select('*')->paginate(10);
         $post = Post::all();
 
         return view('admin.posts.index', compact('post'));
@@ -54,7 +56,7 @@ class PostController extends Controller
                 'required',
             ],
             'post_content' => 'min:5|required',
-            'post_image' => 'active_url',
+            'post_image' => 'image|max:256',
             'tags' => 'exists:tags,id',
         ]);
 
@@ -62,6 +64,7 @@ class PostController extends Controller
 
         $data['user_id'] = Auth::id();
         $data['post_date'] = new DateTime();
+        $data['post_image'] = Storage::put('uploads', $data['post_image']);
 
         Post::create($data);
         return redirect()->route('admin.index')->with('created', $data['user_id']);
@@ -114,7 +117,7 @@ class PostController extends Controller
                 Rule::unique('posts')->ignore($post->title, 'title'),
             ],
             'post_content' => 'min:5|required',
-            'post_image' => 'active_url',
+            'post_image' => 'image|max:256',
             'tags' => 'exists:tags,id',
         ]);
 

@@ -61,5 +61,6 @@
                 @endforelse
             </tbody>
         </table>
+        {{-- {{ $post->links() }} --}}
     </div>
 @endsection

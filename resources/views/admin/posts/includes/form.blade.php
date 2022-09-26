@@ -1,4 +1,4 @@
-<form action="{{ route($routeName, $data) }}" method="post">
+<form action="{{ route($routeName, $data) }}" method="post" enctype="multipart/form-data">
     @csrf
     @method($methodName)
     <div class="container">
@@ -38,8 +38,9 @@
 
         <div class="mb-3">
             <label for="post_image">Post Image</label>
-            <input class="form-control" type="text" name="post_image"
-                value="{{ old('post_image', $post->post_image) }}">
+            <input type="file" class="form-control" name="post_image">
+            {{-- <input class="form-control" type="text" name="post_image"
+                value="{{ old('post_image', $post->post_image) }}"> --}}
             @include('admin.posts.includes.errors', [
                 'errorType' => 'post_image',
             ])
