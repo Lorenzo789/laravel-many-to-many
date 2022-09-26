@@ -7,10 +7,11 @@
                 <h3 class="card-title">{{ $post->title }}</h3>
             </div>
             <div class="card-image text-center my-3">
-                
-                    {{-- <img src="{{ $post->post_image }}" class="img-fluid rounded-start" alt="..."> --}}
+                @if (filter_var($post->post_image, FILTER_VALIDATE_URL))
+                    <img src="{{ $post->post_image }}" class="img-fluid rounded-start" alt="...">
+                @else
                     <img src="{{ asset('storage/'. $post->post_image) }}" class="img-fluid rounded-start" alt="...">
-
+                @endif
             </div>
             <div class="subtitle">
                 <p class="card-text">{{ $post->post_content }}</p>
